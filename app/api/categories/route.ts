@@ -9,30 +9,7 @@ function slugify(name: string) {
     .slice(0, 60);
 }
 
-const defaultCategories = [
-  "Cat food",
-  "Food",
-  "Clothing",
-  "Baby toys",
-  "Health",
-  "Technology",
-  "Energy",
-  "Arts & Culture",
-  "Governance",
-];
-
-async function ensureDefaults() {
-  const existing = await prisma.category.count();
-  if (existing > 0) return;
-
-  await prisma.category.createMany({
-    data: defaultCategories.map((name) => ({ name, slug: slugify(name) })),
-    skipDuplicates: true,
-  });
-}
-
 export async function GET() {
-  await ensureDefaults();
   const categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
   return NextResponse.json({ categories });
 }

@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { useSession, signIn } from "next-auth/react";
-import { UploadButton } from "@uploadthing/react";
-import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import ShareButtons from "@/components/businesses/ShareButtons";
 import {
   Search,
@@ -227,160 +225,7 @@ export default function BusinessesClientShell() {
         </button>
       </div>
 
-      {/* Create form */}
-      <section style={{
-        marginBottom: 40,
-        border: "1px solid var(--border-color)",
-        borderRadius: "var(--radius-xl)",
-        padding: 20,
-        background: "var(--bg-card)",
-        boxShadow: "var(--shadow-md)",
-      }}>
-        {session?.user ? (
-          <form onSubmit={handleCreateBusiness} style={{ display: "grid", gap: 14 }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
-              <label style={{ display: "grid", gap: 6 }}>
-                <span style={{ fontWeight: 600 }}>Business name</span>
-                <input
-                  id="business-name-input"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                  placeholder="e.g., Cats & Co. Gourmet"
-                  style={inputStyle}
-                />
-              </label>
-              <label style={{ display: "grid", gap: 6 }}>
-                <span style={{ fontWeight: 600 }}>Category</span>
-                <select
-                  value={categoryId}
-                  onChange={(e) => setCategoryId(e.target.value)}
-                  style={inputStyle}
-                >
-                  <option value="all">Select category</option>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
-                  ))}
-                  <option value="add-new">+ Add category</option>
-                </select>
-              </label>
-            </div>
-            {categoryId === "add-new" && (
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-                <input
-                  value={newCategory}
-                  onChange={(e) => setNewCategory(e.target.value)}
-                  placeholder="New category name"
-                  style={{ ...inputStyle, flex: 1, minWidth: 220 }}
-                />
-                <button type="button" style={buttonStyle} onClick={async () => {
-                  if (!newCategory.trim()) return;
-                  const res = await fetch("/api/categories", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: newCategory }) });
-                  const json = await res.json();
-                  if (json?.category) {
-                    setCategories((prev) => [...prev, json.category]);
-                    setCategoryId(json.category.id);
-                    setMessage(`Added category ${json.category.name}`);
-                  }
-                }}>
-                  <Plus size={14} /> Save category
-                </button>
-              </div>
-            )}
-            <label style={{ display: "grid", gap: 6 }}>
-              <span style={{ fontWeight: 600 }}>Description</span>
-              <textarea
-                value={form.description}
-                onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-                placeholder="Short overview"
-                style={{ ...inputStyle, minHeight: 90 }}
-              />
-            </label>
-            <label style={{ display: "grid", gap: 6 }}>
-              <span style={{ fontWeight: 600 }}>Comment</span>
-              <textarea
-                value={form.comment}
-                onChange={(e) => setForm((f) => ({ ...f, comment: e.target.value }))}
-                placeholder="Leave a note or tagline"
-                style={{ ...inputStyle, minHeight: 70 }}
-              />
-            </label>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-              <label style={{ display: "grid", gap: 6 }}>
-                <span style={{ fontWeight: 600 }}>Page link</span>
-                <input
-                  value={form.pageLink}
-                  onChange={(e) => setForm((f) => ({ ...f, pageLink: e.target.value }))}
-                  placeholder="https://your-site.com"
-                  style={inputStyle}
-                />
-              </label>
-              <label style={{ display: "grid", gap: 6 }}>
-                <span style={{ fontWeight: 600 }}>Instagram</span>
-                <input
-                  value={form.instagramUrl}
-                  onChange={(e) => setForm((f) => ({ ...f, instagramUrl: e.target.value }))}
-                  placeholder="https://instagram.com/yourbrand"
-                  style={inputStyle}
-                />
-              </label>
-              <label style={{ display: "grid", gap: 6 }}>
-                <span style={{ fontWeight: 600 }}>Website</span>
-                <input
-                  value={form.websiteUrl}
-                  onChange={(e) => setForm((f) => ({ ...f, websiteUrl: e.target.value }))}
-                  placeholder="https://"
-                  style={inputStyle}
-                />
-              </label>
-            </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-              <div style={{ display: "grid", gap: 8 }}>
-                <span style={{ fontWeight: 600, display: "flex", gap: 6, alignItems: "center" }}><ImageIcon size={14} /> Brand logo</span>
-                <UploadButton<OurFileRouter, "businessBrand">
-                  endpoint="businessBrand"
-                  onClientUploadComplete={(res) => {
-                    const file = res?.[0];
-                    if (file) setLogo({ url: file.url, key: file.key });
-                  }}
-                  onUploadError={(error) => setMessage(error.message)}
-                />
-                {logo.url && <img src={logo.url} alt="Logo preview" style={{ maxWidth: 180, borderRadius: 12, border: "1px solid var(--border-color)" }} />}
-              </div>
-              <div style={{ display: "grid", gap: 8 }}>
-                <span style={{ fontWeight: 600, display: "flex", gap: 6, alignItems: "center" }}><ImageIcon size={14} /> Cover image</span>
-                <UploadButton<OurFileRouter, "businessCover">
-                  endpoint="businessCover"
-                  onClientUploadComplete={(res) => {
-                    const file = res?.[0];
-                    if (file) setCover({ url: file.url, key: file.key });
-                  }}
-                  onUploadError={(error) => setMessage(error.message)}
-                />
-                {cover.url && <img src={cover.url} alt="Cover preview" style={{ maxWidth: 240, borderRadius: 12, border: "1px solid var(--border-color)" }} />}
-              </div>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-              <button type="submit" className="btn-primary" disabled={loadingCreate} style={{ padding: "10px 16px" }}>
-                {loadingCreate ? <Loader2 size={16} className="spin" /> : <Check size={16} />} Save business
-              </button>
-              {message && <span style={{ color: "var(--text-secondary)" }}>{message}</span>}
-            </div>
-          </form>
-        ) : (
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-            <div>
-              <h3 style={{ margin: 0, color: "var(--text-primary)", fontWeight: 800 }}>Sign in to add your business</h3>
-              <p style={{ color: "var(--text-secondary)" }}>Upload logos, covers, and generate share links once logged in.</p>
-            </div>
-            <button className="btn-primary" onClick={() => signIn()} style={{ padding: "10px 16px" }}>
-              Sign in
-            </button>
-          </div>
-        )}
-      </section>
+      {/* Create form removed for view-only page; creation now lives at /businesses/create */}
 
       {/* Results */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
@@ -400,9 +245,13 @@ export default function BusinessesClientShell() {
         <div style={{ padding: 32, border: "1px solid var(--border-color)", borderRadius: 16, textAlign: "center" }}>
           <p style={{ marginBottom: 12 }}>No businesses yet. Be the first to add one.</p>
           {session?.user ? (
-            <button className="btn-primary" onClick={() => document.getElementById("business-name-input")?.scrollIntoView({ behavior: "smooth" })}>Create business</button>
+            <Link href="/businesses/create" className="btn-primary">
+              Create business
+            </Link>
           ) : (
-            <button className="btn-primary" onClick={() => signIn()}>Sign in to create</button>
+            <button className="btn-primary" onClick={() => signIn()}>
+              Sign in to create
+            </button>
           )}
         </div>
       ) : (

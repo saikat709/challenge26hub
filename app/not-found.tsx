@@ -1,23 +1,57 @@
 import Link from "next/link";
+import "./not-found.css";
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-white px-6 text-slate-900">
-      <div className="w-full max-w-lg space-y-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">404</p>
-        <h1 className="text-2xl font-bold">Page not found</h1>
-        <p className="text-sm text-slate-600">
-          The page you’re looking for isn’t here. Head back home to continue browsing.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Link href="/" className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white">
-            Go home
-          </Link>
-          <Link href="/businesses" className="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900">
-            View businesses
-          </Link>
+    <main className="nf-page">
+      <div className="nf-ambient nf-ambient-a" aria-hidden />
+      <div className="nf-ambient nf-ambient-b" aria-hidden />
+
+      <section className="nf-shell">
+        <header className="nf-meta">
+          <span className="nf-pill">404</span>
+          <span className="nf-meta-text">Lost in the grid</span>
+        </header>
+
+        <div className="nf-body">
+          <div className="nf-copy">
+            <h1 className="nf-title">Page not found</h1>
+            <p className="nf-subtitle">
+              The page you are looking for is not available. Try one of the quick links below or head back to the
+              homepage.
+            </p>
+            <div className="nf-actions">
+              <Link href="/" className="nf-btn nf-btn-primary">
+                Go home
+              </Link>
+              <Link href="/businesses" className="nf-btn nf-btn-ghost">
+                View businesses
+              </Link>
+              <Link href="/ideas" className="nf-btn nf-btn-ghost subtle">
+                Explore ideas
+              </Link>
+            </div>
+          </div>
+
+          <div className="nf-card-grid">
+            <article className="nf-card">
+              <p className="nf-card-label">Status</p>
+              <p className="nf-card-title">Off the map</p>
+              <p className="nf-card-sub">We could not locate this route.</p>
+            </article>
+            <article className="nf-card accent">
+              <p className="nf-card-label">Next steps</p>
+              <p className="nf-card-title">Browse listings</p>
+              <p className="nf-card-sub">Discover businesses and ideas nearby.</p>
+            </article>
+            <article className="nf-card span">
+              <p className="nf-card-sub">
+                Having trouble? <Link className="nf-link" href="/login">Sign in</Link> to pick up where you left off.
+              </p>
+            </article>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
