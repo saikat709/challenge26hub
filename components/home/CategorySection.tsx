@@ -7,18 +7,18 @@ import {
 } from "lucide-react";
 
 const categories: { icon: LucideIcon; label: string; color: string; count: number }[] = [
-  { icon: Leaf,     label: "Sustainability",  color: "#10b981", count: 312 },
-  { icon: Heart,    label: "Health",          color: "#f43f5e", count: 248 },
-  { icon: BookOpen, label: "Education",       color: "#f59e0b", count: 197 },
-  { icon: Scale,    label: "Governance",      color: "#6366f1", count: 156 },
-  { icon: Globe,    label: "Climate",         color: "#06b6d4", count: 289 },
-  { icon: Cpu,      label: "Technology",      color: "#8b5cf6", count: 334 },
-  { icon: Zap,      label: "Energy",          color: "#f97316", count: 143 },
-  { icon: Music,    label: "Arts & Culture",  color: "#ec4899", count: 118 },
-  { icon: Camera,   label: "Media",           color: "#14b8a6", count: 92  },
-  { icon: Briefcase,label: "Economy",         color: "#84cc16", count: 171 },
-  { icon: Home,     label: "Urban Living",    color: "#a78bfa", count: 134 },
-  { icon: Plane,    label: "Travel",          color: "#fb923c", count: 87  },
+  { icon: Leaf,     label: "Cat food",        color: "#10b981", count: 48 },
+  { icon: Heart,    label: "Food",            color: "#f43f5e", count: 126 },
+  { icon: BookOpen, label: "Clothing",        color: "#f59e0b", count: 98 },
+  { icon: Scale,    label: "Baby toys",       color: "#6366f1", count: 64 },
+  { icon: Globe,    label: "Health",          color: "#06b6d4", count: 87 },
+  { icon: Cpu,      label: "Technology",      color: "#8b5cf6", count: 142 },
+  { icon: Zap,      label: "Energy",          color: "#f97316", count: 53 },
+  { icon: Music,    label: "Arts & Culture",  color: "#ec4899", count: 38 },
+  { icon: Camera,   label: "Branding",        color: "#14b8a6", count: 71 },
+  { icon: Briefcase,label: "Services",        color: "#84cc16", count: 109 },
+  { icon: Home,     label: "Home & Living",   color: "#a78bfa", count: 92 },
+  { icon: Plane,    label: "Travel",          color: "#fb923c", count: 55 },
 ];
 
 export default function CategorySection() {
@@ -38,10 +38,10 @@ export default function CategorySection() {
             fontSize: "clamp(1.8rem, 4vw, 2.5rem)", fontWeight: 800,
             color: "var(--text-primary)", letterSpacing: "-0.03em", marginBottom: 12,
           }}>
-            26 <span className="gradient-text">Challenge Categories</span>
+            26 <span className="gradient-text">Business Categories</span>
           </h2>
           <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: 440, margin: "0 auto" }}>
-            Explore ideas from every corner of human ambition.
+            Explore businesses from every corner of human ambition.
           </p>
         </div>
 

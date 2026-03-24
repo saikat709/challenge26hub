@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "@uploadthing/react/styles.css";
 import { Providers } from "@/app/providers";
 
 const inter = Inter({
@@ -10,14 +11,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Challenge26 Ideas Hub",
+  title: "Challenge26 Business Hub",
   description:
-    "A collaborative hub for exploring, sharing, and voting on challenge ideas across 26 categories.",
-  keywords: ["challenge", "ideas", "collaboration", "innovation", "community"],
+    "A collaborative hub for creating, sharing, and showcasing businesses across every category.",
+  keywords: ["business", "startup", "collaboration", "innovation", "community"],
   authors: [{ name: "Challenge26 Team" }],
   openGraph: {
-    title: "Challenge26 Ideas Hub",
-    description: "Shape tomorrow, one idea at a time.",
+    title: "Challenge26 Business Hub",
+    description: "Launch and discover bold brands in minutes.",
     type: "website",
   },
 };

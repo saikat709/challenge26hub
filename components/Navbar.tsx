@@ -21,9 +21,8 @@ export default function Navbar() {
   const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
 
   const navLinks = [
-    { href: "/ideas", label: "Ideas" },
-    { href: "/challenges", label: "Challenges" },
-    { href: "/leaderboard", label: "Leaderboard" },
+    { href: "/businesses", label: "Businesses" },
+    { href: "/brand-images", label: "Brand Images" },
     { href: "/about", label: "About" },
   ];
 
@@ -173,8 +172,8 @@ export default function Navbar() {
           </button>
 
           {/* CTA */}
-          <Link href="/submit" id="nav-cta" className="btn-primary" style={{ padding: "9px 22px", fontSize: "0.875rem" }}>
-            <span>Submit Idea</span>
+          <Link href="/businesses" id="nav-cta" className="btn-primary" style={{ padding: "9px 22px", fontSize: "0.875rem" }}>
+            <span>Submit Business</span>
           </Link>
 
           {/* Mobile hamburger */}

@@ -3,61 +3,61 @@
 import { Heart, MessageCircle, Star, ArrowUpRight, Flame } from "lucide-react";
 import { useState } from "react";
 
-const ideas = [
+const businesses = [
   {
     id: 1,
-    title: "AI-Powered Urban Farming Grid",
+    title: "Cats & Co. Gourmet",
     description:
-      "Decentralized rooftop farms managed by AI to optimise yield and reduce urban food deserts. Sensors, drones, and community co-ops unite.",
-    category: "Sustainability",
+      "Premium cat food brand delivering chef-designed recipes with sustainable packaging and doorstep delivery.",
+    category: "Cat food",
     categoryColor: "#10b981",
     votes: 342,
     comments: 57,
-    author: "Aisha Rahman",
-    authorInitials: "AR",
+    owner: "Aisha Rahman",
+    ownerInitials: "AR",
     avatarColor: "#6366f1",
-    tags: ["AI", "Urban", "Food"],
+    tags: ["D2C", "Pet", "Food"],
     hot: true,
   },
   {
     id: 2,
-    title: "Decentralised Mental Health Network",
+    title: "Playful Sprouts",
     description:
-      "Peer-to-peer support circles backed by verified professionals. Anonymous, encrypted, community owned. No VC strings attached.",
-    category: "Health",
-    categoryColor: "#f43f5e",
+      "Eco-friendly baby toys brand with modular wooden kits and monthly craft drops for parents and kids.",
+    category: "Baby toys",
+    categoryColor: "#f59e0b",
     votes: 289,
     comments: 44,
-    author: "Marcus Chen",
-    authorInitials: "MC",
+    owner: "Marcus Chen",
+    ownerInitials: "MC",
     avatarColor: "#8b5cf6",
-    tags: ["Mental Health", "Web3", "Community"],
+    tags: ["Toys", "Eco", "Kids"],
     hot: false,
   },
   {
     id: 3,
-    title: "Open-Source Civic Tech OS",
+    title: "Bloom Streetwear Lab",
     description:
-      "An operating system for local governments — transparent budgets, participatory voting, and real-time audit trails for every public spending decision.",
-    category: "Governance",
-    categoryColor: "#f59e0b",
+      "On-demand clothing studio with AI-assisted patterns, recycled fabrics, and creator-led capsule drops.",
+    category: "Clothing",
+    categoryColor: "#06b6d4",
     votes: 211,
     comments: 38,
-    author: "Priya Nair",
-    authorInitials: "PN",
+    owner: "Priya Nair",
+    ownerInitials: "PN",
     avatarColor: "#06b6d4",
-    tags: ["Open Source", "Civic", "Transparency"],
+    tags: ["Fashion", "Circular", "On-demand"],
     hot: false,
   },
 ];
 
-function IdeaCard({ idea }: { idea: (typeof ideas)[0] }) {
+function BusinessCard({ business }: { business: (typeof businesses)[0] }) {
   const [voted, setVoted] = useState(false);
-  const [votes, setVotes] = useState(idea.votes);
+  const [votes, setVotes] = useState(business.votes);
 
   return (
     <article
-      id={`idea-card-${idea.id}`}
+      id={`business-card-${business.id}`}
       style={{
         background: "var(--bg-card)",
         border: "1px solid var(--border-color)",
@@ -98,12 +98,12 @@ function IdeaCard({ idea }: { idea: (typeof ideas)[0] }) {
             borderRadius: "var(--radius-full)",
             fontSize: "0.75rem",
             fontWeight: 600,
-            background: `${idea.categoryColor}18`,
-            color: idea.categoryColor,
+            background: `${business.categoryColor}18`,
+            color: business.categoryColor,
           }}>
-            {idea.category}
+            {business.category}
           </span>
-          {idea.hot && (
+          {business.hot && (
             <span style={{
               display: "flex", alignItems: "center", gap: 4,
               padding: "4px 10px", borderRadius: "var(--radius-full)",
@@ -122,7 +122,7 @@ function IdeaCard({ idea }: { idea: (typeof ideas)[0] }) {
         fontSize: "1.1rem", fontWeight: 700,
         color: "var(--text-primary)", lineHeight: 1.4,
       }}>
-        {idea.title}
+        {business.title}
       </h3>
 
       {/* Description */}
@@ -130,12 +130,12 @@ function IdeaCard({ idea }: { idea: (typeof ideas)[0] }) {
         fontSize: "0.875rem", color: "var(--text-secondary)",
         lineHeight: 1.65, flex: 1,
       }}>
-        {idea.description}
+        {business.description}
       </p>
 
       {/* Tags */}
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-        {idea.tags.map((tag) => (
+        {business.tags.map((tag) => (
           <span key={tag} style={{
             padding: "3px 10px", borderRadius: "var(--radius-full)",
             fontSize: "0.72rem", fontWeight: 500,
@@ -152,28 +152,28 @@ function IdeaCard({ idea }: { idea: (typeof ideas)[0] }) {
         display: "flex", justifyContent: "space-between", alignItems: "center",
         paddingTop: 12, borderTop: "1px solid var(--border-color)",
       }}>
-        {/* Author */}
+        {/* Owner */}
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <div style={{
             width: 30, height: 30, borderRadius: "50%",
-            background: `linear-gradient(135deg, ${idea.avatarColor}, ${idea.avatarColor}99)`,
+            background: `linear-gradient(135deg, ${business.avatarColor}, ${business.avatarColor}99)`,
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: "0.7rem", fontWeight: 700, color: "#fff",
           }}>
-            {idea.authorInitials}
+            {business.ownerInitials}
           </div>
           <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 500 }}>
-            {idea.author}
+            {business.owner}
           </span>
         </div>
 
         {/* Actions */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: "0.8rem", color: "var(--text-muted)" }}>
-            <MessageCircle size={14} /> {idea.comments}
+            <MessageCircle size={14} /> {business.comments}
           </span>
           <button
-            id={`vote-btn-${idea.id}`}
+            id={`vote-btn-${business.id}`}
             onClick={(e) => {
               e.stopPropagation();
               if (!voted) { setVotes(v => v + 1); setVoted(true); }
@@ -197,9 +197,9 @@ function IdeaCard({ idea }: { idea: (typeof ideas)[0] }) {
   );
 }
 
-export default function FeaturedIdeas() {
+export default function FeaturedBusinesses() {
   return (
-    <section id="featured-ideas" style={{ padding: "80px 24px", maxWidth: 1200, margin: "0 auto" }}>
+    <section id="featured-businesses" style={{ padding: "80px 24px", maxWidth: 1200, margin: "0 auto" }}>
       {/* Section header */}
       <div style={{ textAlign: "center", marginBottom: 56 }}>
         <div style={{
@@ -208,16 +208,16 @@ export default function FeaturedIdeas() {
           background: "rgba(99,102,241,0.1)", color: "var(--accent-1)",
           fontSize: "0.8rem", fontWeight: 600, marginBottom: 16,
         }}>
-          <Star size={13} fill="currentColor" /> Handpicked This Week
+          <Star size={13} fill="currentColor" /> Rising This Week
         </div>
         <h2 style={{
           fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800,
           color: "var(--text-primary)", letterSpacing: "-0.03em", marginBottom: 14,
         }}>
-          Featured <span className="gradient-text">Ideas</span>
+          Featured <span className="gradient-text">Businesses</span>
         </h2>
         <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: 480, margin: "0 auto" }}>
-          The community's most exciting proposals, handpicked by our editors.
+          Standout brands the community is buzzing about.
         </p>
       </div>
 
@@ -227,20 +227,20 @@ export default function FeaturedIdeas() {
         gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
         gap: 24,
       }}>
-        {ideas.map((idea) => (
-          <IdeaCard key={idea.id} idea={idea} />
+        {businesses.map((business) => (
+          <BusinessCard key={business.id} business={business} />
         ))}
       </div>
 
       {/* View all */}
       <div style={{ textAlign: "center", marginTop: 48 }}>
         <a
-          href="/ideas"
+          href="/businesses"
           id="view-all-ideas-btn"
           className="btn-ghost"
           style={{ fontSize: "0.9rem" }}
         >
-          View all ideas <ArrowUpRight size={15} />
+          View all businesses <ArrowUpRight size={15} />
         </a>
       </div>
     </section>

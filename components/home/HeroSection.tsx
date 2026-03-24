@@ -5,9 +5,9 @@ import { Sparkles, ArrowRight, Rocket, Users, Trophy, Lightbulb } from "lucide-r
 import Link from "next/link";
 
 const stats: { icon: LucideIcon; value: string; label: string }[] = [
-  { icon: Lightbulb, value: "2,600+", label: "Ideas Submitted" },
+  { icon: Lightbulb, value: "1,200+", label: "Brands Created" },
   { icon: Users,     value: "840+",   label: "Contributors" },
-  { icon: Trophy,    value: "26",     label: "Challenge Categories" },
+  { icon: Trophy,    value: "26",     label: "Business Categories" },
 ];
 
 export default function HeroSection() {
@@ -69,7 +69,7 @@ export default function HeroSection() {
         }}
       >
         <Sparkles size={14} />
-        <span>Challenge 26 Ideas Hub · Season 2026</span>
+        <span>Challenge 26 Business Hub · Season 2026</span>
       </div>
 
       {/* Headline */}
@@ -85,8 +85,8 @@ export default function HeroSection() {
           color: "var(--text-primary)",
         }}
       >
-        Where Bold Ideas{" "}
-        <span className="gradient-text">Take Shape</span>
+        Where Bold Businesses{" "}
+        <span className="gradient-text">Launch Fast</span>
       </h1>
 
       {/* Subtitle */}
@@ -100,8 +100,8 @@ export default function HeroSection() {
           marginBottom: 44,
         }}
       >
-        Submit, explore, and vote on the most innovative ideas across 26 challenge categories.
-        Join a community that turns imagination into impact.
+        Create, explore, and share businesses across every category. Join a community that turns
+        brand sparks into real launches.
       </p>
 
       {/* CTAs */}
@@ -109,14 +109,14 @@ export default function HeroSection() {
         className="anim-fade-up delay-300"
         style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", marginBottom: 72 }}
       >
-        <Link href="/ideas" id="hero-explore-btn" className="btn-primary">
+        <Link href="/businesses" id="hero-explore-btn" className="btn-primary">
           <Rocket size={16} />
-          <span>Explore Ideas</span>
+          <span>Explore Businesses</span>
           <ArrowRight size={15} />
         </Link>
-        <Link href="/submit" id="hero-submit-btn" className="btn-ghost">
+        <Link href="/businesses" id="hero-submit-btn" className="btn-ghost">
           <Sparkles size={15} />
-          <span>Submit Your Idea</span>
+          <span>Create Your Business</span>
         </Link>
       </div>
 
