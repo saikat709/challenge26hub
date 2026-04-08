@@ -1,15 +1,17 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaNeonHttp } from '@prisma/adapter-neon'
+import { PrismaClient } from '@/prisma/generated/client'
 
-const prismaClientSingleton = () => {
-  return new PrismaClient()
+const connectionString = process.env.DIRECT_URL || process.env.DATABASE_URL
+
+if (!connectionString) {
+  throw new Error('Missing database connection string. Set DIRECT_URL or DATABASE_URL in .env.')
 }
 
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+const adapter = new PrismaNeonHttp(connectionString, {})
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
-export default prisma
+export const prisma =
+  globalForPrisma.prisma ?? new PrismaClient({ adapter })
 
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
