@@ -6,7 +6,6 @@ import Providers from "@/components/providers";
 import { BottomNav } from "@/components/shared/BottomNav";
 import { Footer } from "@/components/shared/Footer";
 import { Navbar } from "@/components/shared/Navbar";
-import { prisma } from "@/lib/prisma";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +27,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // console.log("PRISMA MODELS: ", Object.keys(prisma) || "No models found");
-  await prisma.$connect()
   
   return (
     <html lang="bn">

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import Image from "next/image"
 
 async function deleteIdea(formData: FormData) {
   "use server"
@@ -64,8 +65,13 @@ export default async function ProfilePage() {
       <section className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 items-start">
         <div className="flex-shrink-0 text-center">
           {user.image && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={user.image} alt={user.name || "User"} className="w-32 h-32 rounded-full mb-4 object-cover border-4 border-white shadow-lg" />
+            <Image
+              src={user.image} 
+              alt={user.name || "User"} 
+              className="w-32 h-32 rounded-full mb-4 object-cover border-4 border-white shadow-lg" 
+              width={128}
+              height={128}
+              />
           )}
           <form action="/api/auth/signout" method="POST">
             <button type="submit" className="text-red-500 text-sm font-medium hover:text-red-700 transition">

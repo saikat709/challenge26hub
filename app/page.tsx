@@ -13,7 +13,7 @@ export default async function Home() {
       <section className="text-center py-16 px-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl shadow-sm border border-white">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">আপনার <span className="text-blue-600">আইডিয়া</span> শেয়ার করুন</h1>
         <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-          বাংলা সোশ্যাল প্রোডাক্ট বোর্ড। আপনার নতুন স্টার্টআপ বা প্রজেক্ট আইডিয়া সবার সাথে শেয়ার করুন, মতামত নিন এবং কমিউনিটির সাথে যুক্ত হন।
+          আপনার নতুন স্টার্টআপ বা প্রজেক্ট আইডিয়া সবার সাথে শেয়ার করুন, মতামত নিন এবং কমিউনিটির সাথে যুক্ত হন।
         </p>
         <Link href="/new" className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all inline-flex items-center gap-2">
           নতুন আইডিয়া যোগ করুন
@@ -34,7 +34,10 @@ export default async function Home() {
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {ideas.map((idea) => (
-              <div key={idea.id} className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md border border-slate-100 transition-all duration-300 transform hover:-translate-y-1">
+              <div
+                key={idea.id}
+                className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md border border-slate-100 transition-all duration-300 transform hover:-translate-y-1"
+              >
                 {idea.logoUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={idea.logoUrl} alt={idea.title || 'Logo'} className="w-full h-32 object-cover rounded-xl mb-4" />
@@ -87,7 +90,7 @@ export default async function Home() {
           </div>
           <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
             <h3 className="font-bold text-slate-800 mb-2">ক্যাটেগরি কীভাবে যুক্ত করব?</h3>
-            <p className="text-slate-600 text-sm">নতুন আইডিয়া জমা দেওয়ার সময় মেনু থেকে "+ নতুন ক্যাটেগরি" নির্বাচন করে আপনি সহজেই নতুন ক্যাটেগরি যুক্ত করতে পারবেন।</p>
+            <p className="text-slate-600 text-sm">নতুন আইডিয়া জমা দেওয়ার সময় মেনু থেকে &quot;+ নতুন ক্যাটেগরি&quot; নির্বাচন করে আপনি সহজেই নতুন ক্যাটেগরি যুক্ত করতে পারবেন।</p>
           </div>
         </div>
       </section>

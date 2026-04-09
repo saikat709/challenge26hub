@@ -1,8 +1,9 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound } from "next/navigation"
-import { submitComment, toggleReaction } from "@/app/actions/ideaActions"
-import { Heart, Send } from "lucide-react"
+import { submitComment } from "@/app/actions/ideaActions"
+import { Send } from "lucide-react"
+import ReactionButton from "@/components/shared/ReactionButton"
 
 export default async function IdeaPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
@@ -36,18 +37,12 @@ export default async function IdeaPage({ params }: { params: Promise<{ id: strin
           <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 font-bold text-sm rounded-full">
             {idea.category.name}
           </div>
-          
-          <form action={async () => {
-            "use server"
-            await toggleReaction(idea.id)
-          }}>
-            <button type="submit" className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${
-              hasReacted ? "bg-red-50 border-red-200 text-red-600" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
-            }`}>
-              <Heart size={20} className={hasReacted ? "fill-red-500" : ""} />
-              <span className="font-bold">{idea._count.reactions}</span>
-            </button>
-          </form>
+
+          <ReactionButton
+            ideaId={idea.id}
+            initialHasReacted={hasReacted}
+            initialReactionCount={idea._count.reactions}
+          />
         </div>
 
         {idea.logoUrl && (

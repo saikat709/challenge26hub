@@ -31,6 +31,68 @@ export async function getIdeas() {
   }
 }
 
+export async function searchIdeas(query: string) {
+  const trimmedQuery = query.trim()
+  if (!trimmedQuery) return []
+
+  try {
+    const ideas = await prisma.idea.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: trimmedQuery,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: trimmedQuery,
+              mode: "insensitive",
+            },
+          },
+          {
+            category: {
+              name: {
+                contains: trimmedQuery,
+                mode: "insensitive",
+              },
+            },
+          },
+          {
+            author: {
+              name: {
+                contains: trimmedQuery,
+                mode: "insensitive",
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        category: true,
+        author: true,
+        _count: {
+          select: { reactions: true, comments: true },
+        },
+        reactions: true,
+      },
+      orderBy: { createdAt: "desc" },
+      take: 36,
+    })
+
+    return ideas
+  } catch (error) {
+    if (isDbConnectionError(error)) {
+      console.error("Database connection error while searching ideas", error)
+      return []
+    }
+
+    console.error("Unexpected error while searching ideas", error)
+    return []
+  }
+}
+
 export async function toggleReaction(ideaId: string) {
   const session = await auth()
   if (!session?.user?.id) throw new Error("লগইন করা প্রয়োজন (Login required)")
@@ -49,9 +111,9 @@ export async function toggleReaction(ideaId: string) {
     await prisma.reaction.create({ data: { userId, ideaId } })
   }
   
-  revalidatePath('/')
-  revalidatePath('/ideas')
-  revalidatePath(`/idea/${ideaId}`)
+  // revalidatePath('/')
+  // revalidatePath('/ideas')
+  // revalidatePath(`/idea/${ideaId}`)
 }
 
 export async function createCategory(name: string) {

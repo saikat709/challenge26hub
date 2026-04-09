@@ -2,27 +2,21 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Lightbulb, Image as ImageIcon, User, PlusCircle } from "lucide-react"
+import { Home, Lightbulb, Image as ImageIcon, User, PlusCircle, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSession } from "next-auth/react"
-import { useEffect, useState } from "react"
 
 export function BottomNav() {
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isLoggedIn = mounted && !!session?.user
+  const { data: session, status } = useSession()
+  const isLoggedIn = status === "authenticated" && !!session?.user
 
   const links = [
     { href: "/", label: "হোম", icon: Home },
     { href: "/ideas", label: "আইডিয়া", icon: Lightbulb },
     { href: "/new", label: "নতুন যোগ", icon: PlusCircle, highlight: true },
-    { href: "/images", label: "লোগো", icon: ImageIcon },
+    { href: "/search", label: "সার্চ", icon: Search },
+    // { href: "/images", label: "লোগো", icon: ImageIcon },
     {
       href: isLoggedIn ? "/profile" : "/login",
       label: isLoggedIn ? "প্রোফাইল" : "লগইন",
@@ -31,7 +25,6 @@ export function BottomNav() {
   ]
 
   const isRouteActive = (href: string) => {
-    if (!mounted) return false
     if (href === "/") return pathname === "/"
     return pathname === href || pathname.startsWith(`${href}/`)
   }

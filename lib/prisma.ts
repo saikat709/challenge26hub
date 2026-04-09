@@ -1,3 +1,6 @@
+import dns from 'dns'
+dns.setDefaultResultOrder('ipv4first')
+
 import { PrismaNeonHttp } from '@prisma/adapter-neon'
 import { PrismaClient } from '@/prisma/generated/client'
 

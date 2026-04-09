@@ -3,6 +3,7 @@ import Link from "next/link"
 import { MessageSquare, Heart } from "lucide-react"
 import { auth } from "@/lib/auth"
 
+
 export default async function IdeasPage() {
   const ideas = await getIdeas()
   const session = await auth()
