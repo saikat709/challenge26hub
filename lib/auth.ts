@@ -31,6 +31,20 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: googleOAuth.clientId,
       clientSecret: googleOAuth.clientSecret,
+      // Avoid runtime OIDC discovery request failures by using explicit Google endpoints.
+      wellKnown: undefined,
+      issuer: "https://accounts.google.com",
+      authorization: {
+        url: "https://accounts.google.com/o/oauth2/v2/auth",
+        params: { scope: "openid email profile" },
+      },
+      token: {
+        url: "https://oauth2.googleapis.com/token",
+      },
+      userinfo: {
+        url: "https://openidconnect.googleapis.com/v1/userinfo",
+      },
+      jwks_endpoint: "https://www.googleapis.com/oauth2/v3/certs",
     }),
   ],
   session: {

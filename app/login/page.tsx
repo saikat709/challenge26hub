@@ -1,13 +1,17 @@
 import GoogleLoginCard from "@/components/auth/GoogleLoginCard"
 
 type LoginPageProps = {
-  searchParams?: {
-    callbackUrl?: string
-  }
+  searchParams: Promise<{
+    callbackUrl?: string | string[]
+  }>
 }
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
-  const callbackUrl = searchParams?.callbackUrl || "/"
+  const resolvedSearchParams = await searchParams
+  const callbackUrlParam = resolvedSearchParams.callbackUrl
+  const callbackUrl = Array.isArray(callbackUrlParam)
+    ? callbackUrlParam[0] ?? "/"
+    : callbackUrlParam ?? "/"
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center py-8 md:py-14">
