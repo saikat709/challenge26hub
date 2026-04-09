@@ -40,6 +40,7 @@ export default function CreateIdeaForm({ initialCategories }: { initialCategorie
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newCatName, setNewCatName] = useState("")
   const [creatingCat, setCreatingCat] = useState(false)
+  const selectedCategoryName = categories.find((cat) => cat.id === selectedCat)?.name
 
   const handleCategoryChange = (val: string | null) => {
     if (!val) return
@@ -91,7 +92,9 @@ export default function CreateIdeaForm({ initialCategories }: { initialCategorie
           <label className="block text-sm font-medium text-slate-700 mb-1">ক্যাটেগরি *</label>
           <Select value={selectedCat} onValueChange={handleCategoryChange}>
             <SelectTrigger className="w-full rounded-2xl h-12 bg-slate-50 border-slate-200">
-              <SelectValue placeholder="ক্যাটেগরি নির্বাচন করুন..." />
+              <SelectValue placeholder="ক্যাটেগরি নির্বাচন করুন...">
+                {selectedCategoryName}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent className="rounded-xl border-slate-100 shadow-xl">
               {categories.map((cat) => (
